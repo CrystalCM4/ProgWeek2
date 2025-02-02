@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Enemy : MonoBehaviour
 {   
@@ -18,7 +19,6 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int speed;
 
-
     private Color typeColor;
     private EnemyState _currentState = EnemyState.Move;
     private int hp;
@@ -29,11 +29,11 @@ public class Enemy : MonoBehaviour
     {
         get
         {
-                return randomType;
+            return randomType;
         }
         set
         {
-                randomType = value;
+            randomType = value;
         }
     }
 
@@ -87,6 +87,7 @@ public class Enemy : MonoBehaviour
 
         if (hp <= 0){
             Destroy(gameObject);
+            Manager.score += 1;
         }
 
         if (transform.position.y <= -6){

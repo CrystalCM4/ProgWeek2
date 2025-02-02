@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class Manager : MonoBehaviour
 {
     [SerializeField]
     private GameObject enemy;
@@ -10,8 +11,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject fighter;
 
+    [SerializeField]
+    private TextMeshProUGUI scoreText;
+
     private float randomSpawnTime;
     private float randomXPos;
+    public static int score;
 
     public static int randomFighterType;
 
@@ -47,5 +52,7 @@ public class GameManager : MonoBehaviour
             Instantiate(fighter, point, Quaternion.identity);
             randomFighterType = Random.Range(0,4);
         }
+
+        scoreText.text = "Score: " + score.ToString();
     }
 }

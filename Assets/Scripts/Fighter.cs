@@ -24,6 +24,7 @@ public class Fighter : MonoBehaviour
     private GameObject target;
     private int hp;
     private int type;
+    private bool focused;
     
 
     // Start is called before the first frame update
@@ -31,7 +32,7 @@ public class Fighter : MonoBehaviour
     {
         hp = 4;
 
-        type = GameManager.randomFighterType;
+        type = Manager.randomFighterType;
 
         //change color
         if (type == 0){
@@ -113,10 +114,15 @@ public class Fighter : MonoBehaviour
 
             case EnemyState.Follow: 
 
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 0.01f);
+                if (target != null){
+                    transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 0.01f);
 
-                if (transform.position == target.transform.position){
-                    StartState(EnemyState.Fight);
+                    if (transform.position == target.transform.position){
+                        StartState(EnemyState.Fight);
+                    }
+                }
+                else {
+                    StartState(EnemyState.Move);
                 }
 
                 break;
@@ -189,12 +195,13 @@ public class Fighter : MonoBehaviour
                             hp -= 2;
                         }
                     }
-                    
+
                     StartState(EnemyState.Follow);
                 }
 
                 else {
                     StartState(EnemyState.Move);
+                    focused = false;
                 }
 
                 break;
@@ -221,7 +228,13 @@ public class Fighter : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collObj){
         if (collObj.gameObject.CompareTag("Enemy")){
             
-            target = collObj.gameObject;
+            if (!focused){
+
+                //prevent from switching targets
+                target = collObj.gameObject;
+                focused = true;
+            }
+            
             StartState(EnemyState.Follow);
         }
 
