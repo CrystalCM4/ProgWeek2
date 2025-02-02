@@ -22,15 +22,29 @@ public class Enemy : MonoBehaviour
     private Color typeColor;
     private EnemyState _currentState = EnemyState.Move;
     private int hp;
+
+    //getter setter
     private int randomType;
+    public int RandomType
+    {
+        get
+        {
+                return randomType;
+        }
+        set
+        {
+                randomType = value;
+        }
+    }
+
+    private GameObject target;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        hp = 4;
+        hp = 8;
         randomType = Random.Range(0, 4);
-        
 
         if (randomType == 0){
 
@@ -70,6 +84,10 @@ public class Enemy : MonoBehaviour
     {
         bodyText.text = hp.ToString();
         UpdateState();
+
+        if (hp <= 0){
+            Destroy(gameObject);
+        }
 
         if (transform.position.y <= -6){
             print("game over");
@@ -134,5 +152,19 @@ public class Enemy : MonoBehaviour
                 
                 break;
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collObj){
+        if (collObj.gameObject.CompareTag("Fighter")){
+            
+            //print("fighter detected");
+            target = collObj.gameObject;
+            StartState(EnemyState.Follow);
+        }
+
+    }
+
+    public void GetAttacked(int damage){
+        hp -= damage;
     }
 }
