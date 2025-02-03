@@ -75,16 +75,12 @@ public class Enemy : MonoBehaviour
         //change color
         gameObject.GetComponent<SpriteRenderer>().color = typeColor;
 
-        //start moving down
-        StartState(EnemyState.Move);
-
     }
 
     // Update is called once per frame
     void Update()
     {
         bodyText.text = hp.ToString();
-        UpdateState();
 
         if (hp <= 0){
             Destroy(gameObject);
@@ -92,78 +88,13 @@ public class Enemy : MonoBehaviour
         }
 
         if (transform.position.y <= -6){
-            SceneManager.LoadScene("GameOver", LoadSceneMode.Additive);
-        }
-    }
-
-    private void StartState(EnemyState newState){
-
-        //run "end state" of current state to start new state
-        EndState(_currentState);
-
-        switch(newState){
-
-            case EnemyState.Move:
-
-                break;
-
-            case EnemyState.Follow: 
-
-                break;
-
-            case EnemyState.Fight: 
-
-                break;
-        }
-    }
-
-    private void UpdateState(){
-        switch(_currentState){
-
-            case EnemyState.Move:
-
-                //move down
-                float yPos = transform.position.y;
-                yPos -= speed * Time.deltaTime;
-                transform.position = new Vector2(transform.position.x, yPos);
-
-                break;
-
-            case EnemyState.Follow: 
-
-                break;
-
-            case EnemyState.Fight: 
-
-                break;
-
-        }
-    }
-
-    private void EndState(EnemyState oldState){
-        switch(oldState){
-            case EnemyState.Move: 
-                
-                break;
-
-            case EnemyState.Follow:     
-
-                break;
-
-            case EnemyState.Fight: 
-                
-                break;
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collObj){
-        if (collObj.gameObject.CompareTag("Fighter")){
-            
-            //print("fighter detected");
-            target = collObj.gameObject;
-            StartState(EnemyState.Follow);
+            SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
         }
 
+        //move down
+            float yPos = transform.position.y;
+            yPos -= speed * Time.deltaTime;
+            transform.position = new Vector2(transform.position.x, yPos);
     }
 
     public void GetAttacked(int damage){
