@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class Enemy : MonoBehaviour
@@ -91,7 +92,7 @@ public class Enemy : MonoBehaviour
         }
 
         if (transform.position.y <= -6){
-            print("game over");
+            SceneManager.LoadScene("GameOver", LoadSceneMode.Additive);
         }
     }
 

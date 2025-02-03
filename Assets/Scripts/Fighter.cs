@@ -32,7 +32,8 @@ public class Fighter : MonoBehaviour
     {
         hp = 4;
 
-        type = Manager.randomFighterType;
+        type = Manager.nextFightersInt[0];
+        Manager.ChangeFighterType();
 
         //change color
         if (type == 0){
@@ -69,6 +70,7 @@ public class Fighter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         bodyText.text = hp.ToString();
         UpdateState();
 
