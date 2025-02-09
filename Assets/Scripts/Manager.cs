@@ -30,6 +30,9 @@ public class Manager : MonoBehaviour
     public AudioSource waterSound;
     public AudioSource grassSound;
     public AudioSource normalSound;
+    public AudioSource deploySound;
+    public AudioSource errorSound;
+
     public static bool fireDeath;
     public static bool waterDeath;
     public static bool grassDeath;
@@ -98,9 +101,20 @@ public class Manager : MonoBehaviour
         //click
         if (Input.GetMouseButtonDown(0) && clickCooldown <= 0){
             
+            //deploy sound
+            deploySound.Play();
+            deploySound.time = 0.3f;
+
+            //other stuff
             instructionText.text = "";
             Instantiate(fighter, point, Quaternion.identity);
             clickCooldown = 2;
+        }
+        else if (Input.GetMouseButtonDown(0) && clickCooldown > 0){
+        
+            //deploy error sound
+            errorSound.Play();
+            errorSound.time = 0.3f;
         }
 
         clickCooldown -= Time.deltaTime; 
@@ -122,29 +136,29 @@ public class Manager : MonoBehaviour
         //play sounds
         if (fireDeath){
             
-            normalSound.time = 0.1f;
             fireSound.Play();
+            fireSound.time = 0.2f;
             fireDeath = false;
             
         }
         if (waterDeath){
             
-            waterSound.time = 0.5f;
             waterSound.Play();
+            waterSound.time = 0.5f;
             waterDeath = false;
             
         }
         if (grassDeath){
             
-            normalSound.time = 0.1f;
             grassSound.Play();
+            grassSound.time = 0.1f;
             grassDeath = false;
             
         }
         if (normalDeath){
             
-            normalSound.time = 0.2f;
             normalSound.Play();
+            normalSound.time = 0.2f;
             normalDeath = false;
 
         }
