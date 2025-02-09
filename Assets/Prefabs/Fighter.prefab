@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6264084711918958580}
   - {fileID: 5568198262613892663}
@@ -78,12 +78,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c157f1d7f2f5ccb44a5fe2011525dd00, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -103,6 +103,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyText: {fileID: 7008465585612086904}
   speed: 1
+  fireSprite: {fileID: 21300000, guid: 75de5d78a7b6b974789ca1bd6c871fc6, type: 3}
+  waterSprite: {fileID: 21300000, guid: 10808defdf9fc824caf5dd1090828d12, type: 3}
+  grassSprite: {fileID: 21300000, guid: 9b95656424a7ace409f64a7684162e49, type: 3}
 --- !u!58 &705968060689730669
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -359,8 +362,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.3
-  m_fontSizeBase: 0.3
+  m_fontSize: 0.8
+  m_fontSizeBase: 0.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

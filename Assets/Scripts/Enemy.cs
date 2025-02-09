@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
@@ -20,7 +21,18 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int speed;
 
-    private Color typeColor;
+    [SerializeField]
+    private Sprite fireSprite;
+
+    [SerializeField]
+    private Sprite waterSprite;
+
+    [SerializeField]
+    private Sprite grassSprite;
+
+
+    //private Color typeColor;
+    private Sprite typeSprite;
     private EnemyState _currentState = EnemyState.Move;
     private int hp;
 
@@ -46,34 +58,29 @@ public class Enemy : MonoBehaviour
     {
         hp = 8;
         randomType = Random.Range(0, 4);
+        typeSprite = GetComponent<SpriteRenderer>().sprite;
 
-        if (randomType == 0){
-
-            //normal
-            typeColor = Color.white;
-
-        }
-        else if (randomType == 1){
+        if (randomType == 1){
 
             //fire
-            typeColor = Color.red;
+            typeSprite = fireSprite;
 
         }
         else if (randomType == 2){
 
             //water
-            typeColor = Color.blue;
+            typeSprite = waterSprite;
 
         }
         else if (randomType == 3){
 
             //grass
-            typeColor = Color.green;
+            typeSprite = grassSprite;
 
         }
 
-        //change color
-        gameObject.GetComponent<SpriteRenderer>().color = typeColor;
+        //change sprite
+        gameObject.GetComponent<SpriteRenderer>().sprite = typeSprite;
 
     }
 
@@ -85,6 +92,18 @@ public class Enemy : MonoBehaviour
         if (hp <= 0){
             Destroy(gameObject);
             Manager.score += 1;
+            if (randomType == 0){
+                Manager.normalDeath = true;
+            }
+            else if (randomType == 1){
+                Manager.fireDeath = true;
+            }
+            else if (randomType == 2){
+                Manager.waterDeath = true;
+            }
+            else if (randomType == 3){
+                Manager.grassDeath = true;
+            }
         }
 
         if (transform.position.y <= -6){

@@ -22,6 +22,19 @@ public class Manager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI nFTimer;
 
+    [SerializeField]
+    private TextMeshProUGUI instructionText;
+
+    
+    public AudioSource fireSound;
+    public AudioSource waterSound;
+    public AudioSource grassSound;
+    public AudioSource normalSound;
+    public static bool fireDeath;
+    public static bool waterDeath;
+    public static bool grassDeath;
+    public static bool normalDeath;
+
     private float randomSpawnTime;
     private float randomXPos;
     private float clickCooldown;
@@ -85,6 +98,7 @@ public class Manager : MonoBehaviour
         //click
         if (Input.GetMouseButtonDown(0) && clickCooldown <= 0){
             
+            instructionText.text = "";
             Instantiate(fighter, point, Quaternion.identity);
             clickCooldown = 2;
         }
@@ -103,6 +117,37 @@ public class Manager : MonoBehaviour
         }
         
         nFList.text = nextFighters[0] + ", " + nextFighters[1] + ", " + nextFighters[2] + ", " + nextFighters[3];
+
+
+        //play sounds
+        if (fireDeath){
+            
+            normalSound.time = 0.1f;
+            fireSound.Play();
+            fireDeath = false;
+            
+        }
+        if (waterDeath){
+            
+            waterSound.time = 0.5f;
+            waterSound.Play();
+            waterDeath = false;
+            
+        }
+        if (grassDeath){
+            
+            normalSound.time = 0.1f;
+            grassSound.Play();
+            grassDeath = false;
+            
+        }
+        if (normalDeath){
+            
+            normalSound.time = 0.2f;
+            normalSound.Play();
+            normalDeath = false;
+
+        }
     }
 
     public static void ChangeFighterType(){

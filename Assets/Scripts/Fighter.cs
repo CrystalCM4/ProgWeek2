@@ -18,8 +18,18 @@ public class Fighter : MonoBehaviour
     [SerializeField]
     private int speed;
 
+    [SerializeField]
+    private Sprite fireSprite;
 
-    private Color typeColor;
+    [SerializeField]
+    private Sprite waterSprite;
+
+    [SerializeField]
+    private Sprite grassSprite;
+
+
+    private Sprite typeSprite;
+
     private EnemyState _currentState = EnemyState.Move;
     private GameObject target;
     private int hp;
@@ -33,34 +43,29 @@ public class Fighter : MonoBehaviour
         hp = 4;
 
         type = Manager.nextFightersInt[0];
+        typeSprite = GetComponent<SpriteRenderer>().sprite;
         Manager.ChangeFighterType();
 
-        //change color
-        if (type == 0){
-
-            //normal
-            typeColor = Color.white;
-
-        }
-        else if (type == 1){
+        //change sprite
+        if (type == 1){
 
             //fire
-            typeColor = Color.red;
+            typeSprite = fireSprite;
 
         }
         else if (type == 2){
 
             //water
-            typeColor = Color.blue;
+            typeSprite = waterSprite;
 
         }
         else if (type == 3){
 
             //grass
-            typeColor = Color.green;
+            typeSprite = grassSprite;
 
         }
-        gameObject.GetComponent<SpriteRenderer>().color = typeColor;
+        gameObject.GetComponent<SpriteRenderer>().sprite = typeSprite;
 
         //start moving down
         StartState(EnemyState.Move);
@@ -76,6 +81,19 @@ public class Fighter : MonoBehaviour
 
         if (hp <= 0 || transform.position.y > 6){
             Destroy(gameObject);
+
+            if (type == 0){
+                Manager.normalDeath = true;
+            }
+            else if (type == 1){
+                Manager.fireDeath = true;
+            }
+            else if (type == 2){
+                Manager.waterDeath = true;
+            }
+            else if (type == 3){
+                Manager.grassDeath = true;
+            }
         }
     }
 
