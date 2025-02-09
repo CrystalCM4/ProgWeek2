@@ -123,12 +123,9 @@ public class Manager : MonoBehaviour
         }
 
         scoreText.text = "Score: " + score.ToString();
-        if (clickCooldown <= 0){
-            nFTimer.text = "Next Fighters";
-        }
-        else {
-            nFTimer.text = "Next Fighters (Cooldown: " + Mathf.Ceil(clickCooldown) + ")";
-        }
+
+        //ternary
+        nFTimer.text = (clickCooldown <= 0) ? "Next Fighters" : "Next Fighters (Cooldown: " + Mathf.Ceil(clickCooldown) + ")";
         
         nFList.text = nextFighters[0] + ", " + nextFighters[1] + ", " + nextFighters[2] + ", " + nextFighters[3];
 
