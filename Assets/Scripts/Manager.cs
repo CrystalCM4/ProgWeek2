@@ -90,7 +90,7 @@ public class Manager : MonoBehaviour
             Instantiate(enemy, new Vector3(randomXPos, 6, 0), Quaternion.identity);
 
             //reset variables
-            randomSpawnTime = Random.Range(1,10);
+            randomSpawnTime = Random.Range(2,6);
             randomXPos = Random.Range(-5,6);
         }
 
@@ -151,7 +151,7 @@ public class Manager : MonoBehaviour
         if (grassDeath){
             
             grassSound.Play();
-            grassSound.time = 0.1f;
+            grassSound.time = 0.05f;
             grassDeath = false;
             
         }

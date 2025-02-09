@@ -135,7 +135,7 @@ public class Fighter : MonoBehaviour
             case EnemyState.Follow: 
 
                 if (target != null){
-                    transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 0.01f);
+                    transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * 4);
 
                     if (transform.position == target.transform.position){
                         StartState(EnemyState.Fight);
